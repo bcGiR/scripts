@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd ~/wordpress/wp-content/themes/brendanjames
+git pull
+cd ..
+sudo cp -R brendanjames/ /var/www/html/wp-content/themes/
+echo Website Updated

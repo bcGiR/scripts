@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+x = rand(10) + 1
+puts "\nWelcome to the number guessing game!!!\n\nPlease guess a number between 1 and 10:"
+guess = gets.to_i
+while guess != x
+  puts "\nSorry your guess was incorrect. Please try again:"
+  guess = gets.to_i
+end
+puts "\n\nCorrect!! Well done!!"

@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# this script records journal entries
+
+##### Contsants
+
+TIME_STAMP=$(date +"%x %r %Z")
+
+##### Variables
+
+header=
+body=
+
+##### Main
+
+clear
+
+echo -e "Welcome $USER, please complete your journal entry.\n\n"
+
+echo -ne "Please enter the title of todays entry:\n"
+read header
+clear
+
+echo -ne "$header $TIME_STAMP:\n"
+read body
+
+echo -ne "\nWould you like to edit this entry (Y/N)? ((feature disabled))"
+read selection
+
+echo -e "$header $TIME_STAMP:\n$body\n\n" >>  ~/Documents/myJournal.txt
+
+echo -ne "\nJournal updated. Press ENTER to quit > "
+read -s enter
+clear
+
