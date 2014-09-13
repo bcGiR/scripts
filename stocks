@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+stocks = `./stocks.sh`
+puts stocks
