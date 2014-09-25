@@ -2,4 +2,8 @@
 
 exec 3<>/dev/tcp/www.brendanjames.ca/80
 echo -e "GET / HTTP/1.0\n" >&3
-cat <&3 | less
+RESPONSE=$( cat <&3 | head -1 | grep -o '[0-9]\{3\}')
+if [ !$RESPONSE == 200 ]
+then
+    echo "brendanjames.ca appears to be down"
+fi
