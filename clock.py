@@ -2,30 +2,37 @@
 
 import sys
 import json
+import datetime
 
-write = False # true if there is data to write to info.json
+### Loads JSON data ###
 info = open('info.json')
-shift = json.load(info) # data about current shift
+shifts = json.load(info) # shifts data
+
+### Current info ###
+date = datetime.datetime.now().strftime('%Y-%m-%d')
+time = datetime.datetime.now().strftime('%H:%M:%S')
 
 if len(sys.argv) != 2: # must have 1 arg after clock.py
     sys.exit('Invalid number of arguments')
 
 if 'signin' in str(sys.argv):
-    if shift['signedin']:
+    if date in shifts:
         print('You are already on the clock')
     else:
-        shift['signedin'] = True
-        write = True
-        print('You are on the clock')
+        shifts.update({ date: {'starttime': time, 'endtime': ''} })
+        # write info to json
+        info = open('info.json', 'w') # open file for writing
+        json.dump(shifts, info)
+        # notify user
+        print('You are on the clock.')
 
 if 'signout' in str(sys.argv):
-    if shift['signedin']:
-        shift['signedin'] = False
-        write = True
+    if date in shifts:
+        shifts[date]['endtime'] = time
+        # write info to json
+        info = open('info.json', 'w') # open file for writing
+        json.dump(shifts, info)
+        # notify user
         print('You are off the clock.')
     else:
         print('You are not signed in.')
-
-if write:
-    info = open('info.json', 'w') # open file for writing
-    json.dump(shift, info)
